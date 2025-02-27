@@ -13,24 +13,24 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t vinayaktanksali/project:$BUILD_NUMBER .'
+                sh 'sudo docker build -t vinayaktanksali/project:$BUILD_NUMBER .'
             }
         }
         stage('Docker Login') {
             steps {
-                sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin' 
+                sh 'echo $DOCKERHUB_CREDS_PSW | sudo docker login -u $DOCKERHUB_CREDS_USR --password-stdin' 
             }
         }
         stage('Docker PUSH') {
             steps {
-                sh 'docker push vinayaktanksali/project:$BUILD_NUMBER' 
+                sh 'sudo docker push vinayaktanksali/project:$BUILD_NUMBER' 
             }
         }
     }
     post {
         always {
-            sh 'docker logout'
-            sh 'docker system prune -af'
+            sh 'sudo docker logout'
+            sh 'sudo docker system prune -af'
             echo "Pipeline finished successfully"         
         }
     }
