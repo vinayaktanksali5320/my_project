@@ -8,6 +8,7 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 checkout scm
+                sh 'ls *'
             }
         }
         stage('Build Image') {
@@ -28,7 +29,7 @@ pipeline {
     }
     post {
         always {
-            sh 'docker logout'         
+            sh 'docker logout && echo "Pipeline finished"'         
         }
     }
 }
