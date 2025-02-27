@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'sudo docker build -t vinayaktanksali/project:$BUILD_NUMBER .'
+                sh 'docker build -t vinayaktanksali/project:$BUILD_NUMBER .'
             }
         }
         stage('Docker Login') {
