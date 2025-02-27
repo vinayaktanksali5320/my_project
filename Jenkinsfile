@@ -18,19 +18,19 @@ pipeline {
         }
         stage('Docker Login') {
             steps {
-                sh 'echo $DOCKERHUB_CREDS_PSW | sudo docker login -u $DOCKERHUB_CREDS_USR --password-stdin' 
+                sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin' 
             }
         }
         stage('Docker PUSH') {
             steps {
-                sh 'sudo docker push vinayaktanksali/project:$BUILD_NUMBER' 
+                sh 'docker push vinayaktanksali/project:$BUILD_NUMBER' 
             }
         }
     }
     post {
         always {
-            sh 'sudo docker logout'
-            sh 'sudo docker system prune -af'
+            sh 'docker logout'
+            sh 'docker system prune -af'
             echo "Pipeline finished successfully"         
         }
     }
