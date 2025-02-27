@@ -8,12 +8,12 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 checkout scm
-                sh 'ls *'
+                sh 'ls -l'
             }
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t vinayaktanksali/project:$BUILD_NUMBER'
+                sh 'docker build -t vinayaktanksali/project:$BUILD_NUMBER .'
             }
         }
         stage('Docker Login') {
@@ -29,7 +29,9 @@ pipeline {
     }
     post {
         always {
-            sh 'docker logout && echo "Pipeline finished"'         
+            sh 'docker logout'
+            sh 'docker system prune -af'
+            echo "Pipeline finished successfully"         
         }
     }
 }

@@ -12,7 +12,7 @@ COPY requirements.txt /app/
 
 RUN python -m pip install --upgrade pip
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
 
@@ -20,4 +20,4 @@ EXPOSE 8000
 
 RUN python manage.py migrate
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
